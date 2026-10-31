@@ -9,6 +9,9 @@ on:
 
 env:
     LUMINAL_LOG: "1"
+    # Optimize workspace crates too (deps are already opt-level 3 via
+    # [profile.dev.package."*"]); debug-assertions stay on.
+    CARGO_PROFILE_DEV_OPT_LEVEL: "2"
 
 jobs:
     python_native_tests:
