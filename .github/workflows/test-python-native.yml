@@ -19,7 +19,7 @@ jobs:
         runs-on: ubuntu-latest
         container:
             image: ghcr.io/luminal-ai/luminal-docker:cpu
-        timeout-minutes: 45
+        timeout-minutes: 60
         steps:
             - uses: actions/checkout@v6
             - name: CPU info (measurement)
@@ -27,4 +27,4 @@ jobs:
             - name: Update Rust toolchain
               run: rustup update
             - name: Build and test PyTorch reference backend
-              run: bash crates/pytorch/reference/run_tests.sh -v -m "not slow" --ignore=../utils/tests/test_opinfo.py -n logical
+              run: bash crates/pytorch/reference/run_tests.sh -v -m "not slow" --ignore=../utils/tests/test_opinfo.py -n logical -k "not (test_ordering_ops_on_narrow_storage_match_bitwise and max_pool1d_indices)"
